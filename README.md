@@ -7,7 +7,6 @@ Please create a text file called "db_filepath.txt" and place the full filepath o
 All existing functionality can be found in the "expensetrackerfortwo.py" file.
 
 Currently, features include:
-<<<<<<< HEAD
 
 - Entering a transaction
 - Viewing transactions grouped by category
@@ -24,4 +23,3 @@ Use "pip install -r requirements.txt" to get the packages required.
 - View the "per person spending" if spending were equal (total spending / 2)
 
 Use "pip install -r requirements.txt" to get the packages required.
->>>>>>> e05028c91c0f0b1aee9dd6d3d187fcf32bf3c7ea

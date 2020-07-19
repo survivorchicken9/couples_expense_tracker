@@ -16,6 +16,8 @@ def get_int(prompt):
             break
     return value
 
+# TODO input validation for entering transaction
+
 # Text for function call for use in get_int()
 ask_for_input = '\n What would you like to do? \
                \n (1) Enter a transaction \
@@ -24,11 +26,11 @@ ask_for_input = '\n What would you like to do? \
                \n (4) View transactions grouped by person \
                \n (5) View who owes who \
                \n (6) View the per person spending (total / 2) \
-               \n (7) Exit \n'
+               \n (7) Exit \n\n'
 
 # Begin the calls
 if __name__ == "__main__":
-    print('Greetings, master. \n')
+    print('Greetings, young master.')
     while True:
         top_of_loop = get_int(ask_for_input)
         if top_of_loop == 1:
@@ -50,5 +52,5 @@ if __name__ == "__main__":
             ex.viewPerPersonSpending()
             continue
         elif top_of_loop == 7:
-            print('\n Farewell. May the force be with you.')
+            print('\nFarewell. May the force be with you.')
             break

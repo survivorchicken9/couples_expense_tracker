@@ -1,2 +1,4 @@
 .DS_Store
 *.xlsx
+__pycache__
+db_filepath.txt

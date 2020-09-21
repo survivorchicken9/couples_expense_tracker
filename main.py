@@ -1,56 +1,72 @@
 import expensetrackerfortwo as ex
+import argparse
+from gooey import Gooey, GooeyParser
+# https://docs.python.org/3/howto/argparse.html#id1
+# https://github.com/chriskiehl/Gooey
+# https://docs.python.org/3/library/argparse.html#sub-commands
+
+@Gooey(program_name='Expense Tracker',
+	   program_description='A handy tool to enter and track your living expenses.',
+	   default_size=(700, 700)
+)
+def main():
+	"""
+	Collects command line arguments with GooeyParser and run functions
+	from expensetrackkerfortwogui.
+
+	Possible functions are entering a transaction (EnterExpense) and
+	viewing expenses and expense breakdowns (ViewExpenses). 
+	"""
+	parser = GooeyParser()
+	subparsers = parser.add_subparsers()	
+
+	# create the parser and arguments for the "EnterExpense" command
+	parser_enter = subparsers.add_parser('EnterExpense')
+	parser_enter.add_argument("Name",
+	                    help="Who paid for this expense?")
+	parser_enter.add_argument("Amount",
+	                    help="How much was the expense?",
+	                    type=int)
+	parser_enter.add_argument("Category",
+	                    help="What type of expense was it?")
+	parser_enter.add_argument("ExpenseDate",
+						widget="DateChooser",
+	                    help="What was the date of the expense?")
+	parser_enter.set_defaults(func=ex.enterExpense)	
+
+	# create the parser and arguments for the "View" command
+	parser_view = subparsers.add_parser('ViewExpenses')
+	parser_view.add_argument("DateRange",
+						widget='Listbox',
+						nargs='+',
+						choices=['Last 7 days','Last 30 days','All time'],
+						default='Last 30 days',
+	                    help="Select the date range for expenses")
+	parser_view.add_argument("Total",
+						widget='Listbox',
+						nargs='+',
+						choices=['Yes','No'],
+						default='Yes',
+	                    help="View total expenses")
+	parser_view.add_argument("Category",
+						widget='Listbox',
+						nargs='+',
+						choices=['Yes','No'],
+						default='Yes',
+	                    help="View category breakdown of expenses")
+	parser_view.add_argument("Person",
+						widget='Listbox',
+						nargs='+',
+						choices=['Yes','No'],
+						default='Yes',
+	                    help="View per person breakdown of expenses")
+	parser_view.set_defaults(func=ex.viewExpenses)	
 
 
-def get_int(prompt):
-    """Making sure the input for asking for which function to call is an integer. 
-    Prompts for re-entry if non-integer value is entered."""
-    while True:
-        try:
-            value = int(input(prompt))
-            if value not in [int(i) for i in range(1,8)]:
-                raise ValueError
-        except ValueError:
-            print("That doesn't work. Please enter a valid number from 1-7")
-            continue
-        else:
-            break
-    return value
+	# parsing command line arguments and running functions
+	args = parser.parse_args()
+	args.func(args)
+	
 
-# TODO input validation for entering transaction
-
-# Text for function call for use in get_int()
-ask_for_input = '\n What would you like to do? \
-               \n (1) Enter a transaction \
-               \n (2) View all transactions \
-               \n (3) View transactions grouped by category \
-               \n (4) View transactions grouped by person \
-               \n (5) View who owes who \
-               \n (6) View the per person spending (total / 2) \
-               \n (7) Exit \n\n'
-
-# Begin the calls
-if __name__ == "__main__":
-    print('Greetings, young master.')
-    while True:
-        top_of_loop = get_int(ask_for_input)
-        if top_of_loop == 1:
-            ex.enterTransaction()
-            continue
-        elif top_of_loop == 2:
-            ex.viewAllByTime()
-            continue
-        elif top_of_loop == 3:
-            ex.viewCategoryByTime()
-            continue
-        elif top_of_loop == 4:
-            ex.viewPersonByTime()
-            continue
-        elif top_of_loop ==5:
-            ex.viewDebt()
-            continue
-        elif top_of_loop == 6:
-            ex.viewPerPersonSpending()
-            continue
-        elif top_of_loop == 7:
-            print('\nFarewell. May the force be with you.')
-            break
+if __name__ == '__main__':
+    main()

@@ -1,9 +1,7 @@
 import expensetrackerfortwo as ex
 import argparse
 from gooey import Gooey, GooeyParser
-# https://docs.python.org/3/howto/argparse.html#id1
-# https://github.com/chriskiehl/Gooey
-# https://docs.python.org/3/library/argparse.html#sub-commands
+
 
 @Gooey(program_name='Expense Tracker',
 	   program_description='A handy tool to enter and track your living expenses.',

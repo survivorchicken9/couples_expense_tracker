@@ -2,7 +2,7 @@ appdirs==1.4.3
 certifi==2020.4.5.1
 DateTime==4.3
 distlib==0.3.0
-numpy==1.18.4
+numpy==1.21.0
 pandas==1.0.3
 pipenv==2022.1.8
 python-dateutil==2.8.1
